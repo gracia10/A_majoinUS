@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="JHR_AUS">
+
+<!-- 로그인 -->
+<select id="login" parameterType="String" resultType="controller.JHR.MemberDTO">
+	select * from member where Id = #{id} and Password = #{password}
+</select> 
+<select id="loginCheck" parameterType="controller.JHR.MemberDTO" resultType="String">
+	select name from member where Id = #{id} and Password = #{password}
+</select>
+<select id="checkMember" resultType="controller.JHR.MemberDTO">
+	select id,name,u_img from member where id = #{id} and password=#{password}
+</select>
+
+<!-- 회원가입 -->
+<insert id="register" parameterType ="controller.JHR.MemberDTO">
+	insert into member (id,password,name,birth,phone,profile,u_img) values(#{id},#{password},#{name},#{birth},#{phone},#{profile},#{u_img})
+</insert>
+
+<!-- <insert id="insert_local" parameterType="list">
+	<foreach collection="list" separator=";" item="item" open="DECLARE BEGIN" close="; END;">
+		INSERT INTO F_LOCATION VALUES(F_LOCATION_SEQ.NEXTVAL,#{item.id},#{item.f_local})
+	</foreach>
+</insert> -->
+
+<select id='fl_num_local' resultType='Integer'>
+	select max(fl_num) from F_LOCATION
+</select>
+
+<insert id="insert_local" parameterType="list">
+		insert all
+			<foreach collection="list" separator=" " item="item">
+				into F_LOCATION values(#{item.fl_num},#{item.id},#{item.f_local})
+			</foreach>
+		SELECT * FROM DUAL
+</insert>
+
+<!-- <insert id="insert_job" parameterType="list">
+	<foreach collection="list" separator=";" item="item" open="DECLARE BEGIN" close="; END;">
+		INSERT INTO F_JOB VALUES(#{fj_num},#{item.id},#{item.f_job})
+	</foreach>
+</insert> -->
+
+<select id='fj_num_job' resultType='Integer'>
+	select max(fj_num) from f_job
+</select>
+
+<insert id="insert_job" parameterType="list">
+		insert all
+			<foreach collection="list" separator=" " item="item">
+				into F_JOB values(#{item.fj_num},#{item.id},#{item.f_job})
+			</foreach>
+		SELECT * FROM DUAL
+</insert>
+
+
+
+<!-- 카테고리 sql -->
+<select id="select1" parameterType="String" resultType="String">
+	select distinct C_1_NAME from CATE_NAME natural join CATEGORY_1 natural join CATEGORY_2 where C_NAME=#{c_name} order by C_1_NAME asc
+</select>
+<select id="select2" parameterType="String" resultType="String">
+	select distinct C_2_NAME from CATE_NAME natural join CATEGORY_1 natural join CATEGORY_2 where C_1_NAME=#{C_1_NAME} order by C_2_NAME asc
+</select>
+
+<!-- 정보 수정 -->
+<update id="memberUpdate" parameterType ="controller.JHR.MemberDTO" > 
+	update member set password = #{password}, birth = #{birth}
+	<if test="u_img != null">
+			, u_img = #{u_img}
+	</if>
+	, profile =#{profile}, phone = #{phone}  where id = #{id}
+</update>
+
+<select id="mypage" parameterType="String" resultType="controller.JHR.MemberDTO">
+	select id, password, name, phone, birth, profile, u_img from member where id = #{id}
+</select>
+
+<select id="my_location" parameterType="String" resultType="String">
+	select f_loc from F_LOCATION where id = #{id}
+</select>
+
+<select id="my_job" parameterType="String" resultType="String">
+	select f_cate from F_JOB where id = #{id}
+</select>
+
+<!-- 비밀번호 체크 -->
+<select id="checkPw" resultType="int">
+ select count(*) from member where id = #{id} and password = #{password}
+</select>
+<!-- 탈퇴시 회원 삭제 처리 -->
+<delete id="deleteSecession" parameterType="String">
+delete from member where id = #{id}
+</delete>
+
+<!--  찾기 -->
+<select id = "findId" resultType = "controller.JHR.MemberDTO">
+ select id from member where name = #{name} and phone = #{phone} 
+</select>
+<select id="findPw" parameterType="controller.JHR.MemberDTO" resultType="controller.JHR.MemberDTO">
+	select * from member where id= #{id} and name = #{name} 
+</select>
+<update id="updatePW" parameterType="controller.JHR.MemberDTO">
+	update member set password=#{password} where id=#{id}
+</update>
+
+ <delete id="delete_job" parameterType="String">
+    delete from F_JOB where id=#{id}
+ </delete>
+
+ <delete id="delete_location" parameterType="String">
+    delete from F_LOCATION where id=#{id}
+ </delete>
+</mapper>
+ 

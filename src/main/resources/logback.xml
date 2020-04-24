@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false">
+
+	
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>[%d{HH:mm:ss}][%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<property name="LOG_DIR" value="D:/AMJ_logs" />
+	
+	<appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_DIR}/archived/logback.log</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	        <fileNamePattern>${LOG_DIR}/archived/FILE.%d{YY-MM-DD}.%i.log.zip</fileNamePattern>
+    		<maxFileSize>5KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+	    </rollingPolicy>
+	    <encoder>
+	        <pattern>[%d{YY-MM-DD HH:mm:ss:SSS}][%thread] %-5level %logger{35} - %msg%n</pattern>
+	    </encoder>
+	</appender>
+	
+	<appender name="Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${LOG_DIR}/error/File-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/error/File-error.%d{YY-MM-DD}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+	    <encoder>
+	        <pattern>[%d{YY-MM-DD HH:mm:ss:SSS}][%thread] %-5level %logger{35} - %msg%n</pattern>
+	    </encoder>
+    </appender>
+
+<!-- 	<logger name="org.springframework" level="DEBUG"/>
+
+ 	<logger name="controller" level="DEBUG" additivity="false">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="File"/>
+        <appender-ref ref="Error"/>
+    </logger>
+ 
+ 	<logger name="org.mybatis.spring" level="DEBUG" />
+    
+ -->
+
+    <root level="DEBUG">
+        <appender-ref ref="Console" />
+    </root>
+    
+</configuration>
