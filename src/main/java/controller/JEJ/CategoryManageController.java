@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.JEJ;
+import interceptor.AdminOnly;
 import project.DTO.Category_2DTO;
 
+@AdminOnly
 @Controller
 public class CategoryManageController {
 

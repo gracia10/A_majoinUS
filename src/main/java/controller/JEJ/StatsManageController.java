@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.JEJ;
+import interceptor.AdminOnly;
 
+@AdminOnly
 @Controller
 public class StatsManageController {
 

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.JEJ;
+import interceptor.AdminOnly;
 import project.DTO.PageDTO;
 import project.DTO.ProjectroomDTO;
 
+@AdminOnly
 @Controller
 public class ProjectManageController {
 	
