@@ -1,84 +1,50 @@
 function level1(){
-	var url=getContext()+"/aus/first_List_LSH";
-
 	$.ajax({
 		type:"get",
-		url:url,
+		url:getContext()+"/aus/category",
 		dataType:"json",
 		contentType: "application/json; charset=utf-8",
 		success:function(args){
-			var i = 0,
-			    array = [],
-				joblen = args.job_list.length,
-				locallen = args.local_list.length;
+			var array = [];
 			
-			for(; i < joblen; i += 1){
-			    array[i] = "<option value='"+args.job_list[i]+"'>"+args.job_list[i]+"</option>";
+			for(i=0 ; i < args.FJL1.length; i += 1){
+			    array[i] = "<option value='"+args.FJL1[i]+"'>"+args.FJL1[i]+"</option>";
 			}
 			$("#job1").html(array.join(''));
 			
-			for(i=0; i < locallen; i += 1){
-			    array[i] = "<option value='"+args.local_list[i]+"'>"+args.local_list[i]+"</option>";
+			for(i=0; i < args.FLL1.lengt; i += 1){
+			    array[i] = "<option value='"+args.FLL1[i]+"'>"+args.FLL1[i]+"</option>";
 			}
 			$("#local1").html(array.join(''));
 			
-//			init_level2("job1");
-//			init_level2("local1");
+			setLevel2("job12",args.FJL2);
+			setLevel2("local12",args.FLL2);
 		}
 	});
 }
 
-function init_level2(what) {
-	var url=getContext()+"/aus/second_List_LSH";
-	var params ="hint="+$("#"+what+" option:eq(0)").val();
-	var id = what+"2"; 
-	real_level2(url,params,id);
-}
-
-function level2(element) {
-	var url=getContext()+"/aus/second_List_LSH";
-	var params = "hint=" + $(element).val();
-	var id = $(element).attr("id") + "2";
-
-	real_level2(url,params,id);
-}
-
-function real_level2(url,params,id){
+function getLevel2(element){
+	var level1 = $(element).val();
+	var id = $(element).attr("id")+"2";
+	
 	$.ajax({
-		type : "post",
-		url : url,
-		data : params,
+		type : "get",
+		url : getContext()+"/aus/category/"+level1,
 		dataType : "json",
-		success : function(args) {
-			$("#" + id + " option").each(function() {
-				$("#" + id + " option:eq(0)").remove();
-			});
-
-			for (var idx = 0; idx < args.list.length; idx++) {
-				$("#" + id).append("<option value='"+args.list[idx]+"'>"+ args.list[idx] + "</option>");
-			}
+		success : function(list) {
+			setLevel2(id,list)
 		}
 	});
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function setLevel2(id,list){
+	$("#" + id + " option").each(function() {
+		$("#" + id + " option:eq(0)").remove();
+	});
+	for (var idx = 0; idx < list.length; idx++) {
+		$("#" + id).append("<option value='"+list[idx]+"'>"+ list[idx] + "</option>");
+	}
+}
 
 function add(element) {
 	var list = [],
@@ -115,8 +81,7 @@ function del(elements) {
 }
 
 $('.show-level2').on('change', function() {
-	console.log("2.레벨2");
-	level2(this);
+	getLevel2(this);
 });
 
 $('.add_btn').on('click', function() {

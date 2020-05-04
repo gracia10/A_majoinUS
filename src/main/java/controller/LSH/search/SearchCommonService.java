@@ -15,6 +15,7 @@ import controller.LSH.DTO.ProfileDTO;
 import controller.LSH.DTO.ResultDTO;
 import project.DTO.IssueDTO;
 import project.DTO.PortfolioDTO;
+import utils.CommonUtils;
 
 @Service
 @Transactional
@@ -23,13 +24,20 @@ public class SearchCommonService {
 	@Autowired
 	private SearchCommonDAO dao;
 	
-	public List<String> getLevel1(String col){
-		List<String> list  = dao.getCategory1("LSH_AUS.select1",col);
-		return list;
+	public Map<String,Object> getCategory(){
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<String> FJL1 = dao.getCategory1("LSH_AUS.select1",CommonUtils.JOB);
+		List<String> FLL1 = dao.getCategory1("LSH_AUS.select1",CommonUtils.LOCAL);
+		map.put("FJL1", FJL1);
+		map.put("FLL1", FLL1);
+		map.put("FJL2", getLevel2(FJL1.get(0)));
+		map.put("FLL2", getLevel2(FLL1.get(0)));
+		
+		return map;
 	}
-
-	public List<String> getLevel2(String col){
-		List<String> list = dao.getCategory1("LSH_AUS.select2",col);
+	
+	public List<String> getLevel2(String level1){
+		List<String> list = dao.getCategory2("LSH_AUS.select2",level1);
 		return list;
 	}
 	

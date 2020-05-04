@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,42 +28,16 @@ public class SearchCommonController {
 	@Autowired
 	private SearchCommonService service;
 	
-	@GetMapping("/first_List_LSH")
+	@GetMapping("/category")
 	public @ResponseBody Map<String,Object> getCategory(){
-		Map<String,Object> map = new HashMap<String, Object>();
-		
-		List<String> job_list = service.getLevel1("직군");
-		List<String> local_list = service.getLevel1("지역");
-		
-		map.put("job_list", job_list);
-		map.put("local_list", local_list);
-		
+		Map<String,Object> map = service.getCategory();
 		return map;
 	}
 	
-//	@PostMapping("/first_List_LSH")
-//	public void first_List(HttpServletResponse resp) throws Exception{
-//		
-//		List<String> job_list = service.getLevel1("직군");
-//		List<String> local_list = service.getLevel1("지역");
-//		
-//		JSONObject jso = new JSONObject();
-//		jso.put("job_list", job_list);
-//		jso.put("local_list", local_list);
-//		
-//		PrintWriter out = resp.getWriter();
-//		out.print(jso);
-//	}
-	
-	@PostMapping("/second_List_LSH")
-	public void second_List(HttpServletResponse resp,@RequestParam(defaultValue="0")int pageNum,String hint) throws Exception{
-		
-		List<String> step2 = service.getLevel2(hint);
-		JSONObject jso = new JSONObject();
-		jso.put("list", step2);
-		
-		PrintWriter out = resp.getWriter();
-		out.print(jso);
+	@GetMapping("/category/{level1}")
+	public @ResponseBody List<String> getLevel2(@PathVariable String level1){
+		List<String> list = service.getLevel2(level1);
+		return list;
 	}
 	
 	@RequestMapping(value="/UserProfile",method=RequestMethod.GET)
