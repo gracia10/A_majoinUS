@@ -90,8 +90,7 @@
 						<!-- pageCount:11 -->
 						<c:set var="pageBlock" value="${10}" />
 						<!-- pageBlock:10 -->
-						<fmt:parseNumber var="result" value="${currentPage / 10}"
-							integerOnly="true" />
+						<fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
 						<!-- result:0 -->
 						<c:set var="startPage" value="${result * 10 + 1}" />
 						<!-- startPage:1 -->

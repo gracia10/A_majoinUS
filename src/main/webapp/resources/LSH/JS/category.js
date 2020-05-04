@@ -2,10 +2,10 @@ function level1(){
 	var url=getContext()+"/aus/first_List_LSH";
 
 	$.ajax({
-		type:"post",
+		type:"get",
 		url:url,
-		dataType:"JSON",
-		contentType : "application/json",
+		dataType:"json",
+		contentType: "application/json; charset=utf-8",
 		success:function(args){
 			var i = 0,
 			    array = [],

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,9 +27,8 @@ public class SearchCommonController {
 	@Autowired
 	private SearchCommonService service;
 	
-	@PostMapping("/first_List_LSH")
-	@ResponseBody
-	public List<String> getCategory(){
+	@GetMapping("/first_List_LSH")
+	public @ResponseBody Map<String,Object> getCategory(){
 		Map<String,Object> map = new HashMap<String, Object>();
 		
 		List<String> job_list = service.getLevel1("직군");
@@ -37,7 +37,7 @@ public class SearchCommonController {
 		map.put("job_list", job_list);
 		map.put("local_list", local_list);
 		
-		return job_list;
+		return map;
 	}
 	
 //	@PostMapping("/first_List_LSH")

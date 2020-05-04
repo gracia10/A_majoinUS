@@ -21,14 +21,6 @@
 	<context:annotation-config />         
 	<context:component-scan base-package="controller, exception" />
 	
-	<!-- viewResolver -->
-	<bean id="beanViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1" />
-	
-	<bean id = "viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-	
 	<!-- DB connect -->
 	<context:property-placeholder location = "classpath:db.properties" />
 	
@@ -54,6 +46,14 @@
 	
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
 
+	<!-- viewResolver -->
+	<bean id="beanViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1" />
+	
+	<bean id = "viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
 	<!-- Interceptor -->
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -61,6 +61,13 @@
 			<bean class="interceptor.UserInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>	
+	
+	<!-- Converter -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+	     	<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	   	</mvc:message-converters>
+	</mvc:annotation-driven>
 
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
@@ -114,19 +121,12 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	<bean id="echoHandler" class="controller.KMJ.EchoHandler"/>
 	
-		<websocket:handlers>
-			<websocket:mapping handler="echoHandler" path="/chat"/>
-			<websocket:sockjs/>
-		</websocket:handlers>
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/chat"/>
+		<websocket:sockjs/>
+	</websocket:handlers>
 	
-		<mvc:annotation-driven>
-		     <mvc:message-converters>
-		            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-		            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-		   </mvc:message-converters>
-		</mvc:annotation-driven>
-		
-		<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.gmail.com" />
 	    <property name="port" value="587" />
 	    <property name="username" value="gpflswkd89@gmail.com" />
