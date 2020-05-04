@@ -56,7 +56,7 @@ public class loginController {
 	         }
 	         
 	         
-	         session.setMaxInactiveInterval(60);
+	         session.setMaxInactiveInterval(1200);
 	         session.setAttribute("id", result.getId());
 	         session.setAttribute("name", result.getName());
 	         session.setAttribute("userphoto", result.getU_img());

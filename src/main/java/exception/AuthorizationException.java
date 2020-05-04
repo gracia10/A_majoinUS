@@ -1,9 +1,11 @@
-package controller.LSH.exceptor;
+package exception;
 
 public class AuthorizationException extends RuntimeException {
+	
+	private static final long serialVersionUID = -259714620238272044L;
 
 	public AuthorizationException() {
-		super();
+		super(ErrorCode.ACCESS_DENIED.getMessage());
 	}
 	
 	public AuthorizationException(String msg) {

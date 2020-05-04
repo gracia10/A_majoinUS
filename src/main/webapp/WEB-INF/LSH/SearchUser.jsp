@@ -29,8 +29,6 @@
 	    background-color: #a0c79b !important;    
 	}
 	
-</style>
-<style>
 	.bg-light-blue:hover{
 	    background-color: #43adea !important; 
 	}
@@ -62,8 +60,8 @@
 </head>
 <body>
 <div class="wrapper">
-		<tiles:insertDefinition name="header" />
-		<tiles:insertDefinition name="left" />
+	<tiles:insertDefinition name="header" />
+	<tiles:insertDefinition name="left" />
 
 	<!-- 전체영역 -->
 	<div class="content-wrapper">
@@ -139,7 +137,7 @@
 			</div>
 
 			<!-- 추천 멤버 -->
-			<c:if test="${fn:length(recomend) > 0}">
+			<c:if test="${!empty recomend}">
 		    	<div class="box box-solid">
 		            <div class="box-header with-border"><h4 class="box-title">추천 멤버</h4></div>
 		        
@@ -164,7 +162,7 @@
 						          <div class="box box-widget widget-user-2"> 
 									<div class="widget-user-header recomend_btn" id="${item.id}" data-toggle="modal" data-target="#modal_user" style="padding-left: 60px;"> 
 						              <div class="widget-user-image">
-						              	<img class="img-circle" src="<%=request.getContextPath()%>/aus/userImg/${item.u_img}" alt="회원 사진" onError="this.src='<%=request.getContextPath() %>/resources/dist/img/user1-128x128.png';" style="width:80px; height:80px; margin-right:40px; overflow:hidden;">
+						              	<img class="img-circle" src="<%=request.getContextPath()%>/aus/userImg/${item.u_img}" alt="회원 사진" style="width:80px; height:80px; margin-right:40px; overflow:hidden;">
 						              </div>
 						              	<ul class="list-unstyled">
 											<li><b>${item.name}(${item.id})</b></li>
@@ -221,7 +219,7 @@
 						<c:forEach var="item" items="${pdto.list}">
 						<tr id="${item.id}">
 							<td style="width: 20%;">
-								<img class="img-circle" src="<%=request.getContextPath()%>/aus/userImg/${item.u_img}" alt="회원 사진" onError="this.src='<%=request.getContextPath() %>/resources/dist/img/user1-128x128.png';" style="width:80px; height:80px; overflow:hidden;">
+								<img class="img-circle" src="<%=request.getContextPath()%>/aus/userImg/${item.u_img}" alt="회원 사진" style="width:80px; height:80px; overflow:hidden;">
 							</td>
 							<td style="width: 30%; text-align: left;">
 								<ul class="list-unstyled">
@@ -290,11 +288,11 @@
 	$(document).ready(initPage);
 	
 	function initPage() {
-		level1();
-		show_search_tag();
-		show_sort();	
+ 		level1();
+/* 		show_search_tag();
+		show_sort();
 		$('.pagination #${pdto.pageNum}').addClass("active");
-	}
+ */	}
 	
 	function getContext(){
 		var context = "<%=cp%>";
@@ -372,7 +370,7 @@
 		sort("pageNum="+$(this).attr("id"));
 	});
 	
-	function show_sort(){											/* 지정된 정렬기준을 가져와 화면에 표시 */
+	function show_sort(){
 		var what_sort = $('#sort').val()+'_sort';
 		var sort_way = $('#sort_way').val();
 				
@@ -412,7 +410,7 @@
 			
 			list.forEach(function(item) {
 				html += "<tr id='"+item.id+"'><td style='width: 20%;'>"
-				html += "<img class='img-circle' src='"+getContext()+"/aus/userImg/"+item.u_img+"' onerror='error(this)' alt='회원 사진' style='width:80px; height:80px; overflow:hidden;'></td>";
+				html += "<img class='img-circle' src='"+getContext()+"/aus/userImg/"+item.u_img+"'></td>";
 				html += "<td style='width: 30%; text-align: left;'><ul class='list-unstyled'><li><b>"+item.name+"("+item.id+")</b></li>";
 				html += "<li>관심직종:"+item.f_cate+"</li>";
 				html += "<li>선호지역:"+item.f_loc+"</li>";

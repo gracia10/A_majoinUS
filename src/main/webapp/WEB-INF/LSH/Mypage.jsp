@@ -9,230 +9,261 @@
 <html>
 <head>
 <title>Document</title>
-<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <style>
 .m:hover {
-    background: #00a65a !important;
-    color: #fff !important;
+	background: #00a65a !important;
+	color: #fff !important;
 }
+
 .pp:hover {
-    background: #168ed4 !important;
-    color: #fff !important;
+	background: #168ed4 !important;
+	color: #fff !important;
 }
-.bg-light-blue-activeblue { 
-    background-color: #1b99e2 !important;
+
+.bg-light-blue-activeblue {
+	background-color: #1b99e2 !important;
 }
+
 .box.box-primary {
-    border-top-color: #46bbff   !important; 
+	border-top-color: #46bbff !important;
 }
+
 .box.box-danger {
-    border-top-color: #42c187 !important;
+	border-top-color: #42c187 !important;
 }
+
 .btn-app {
 	background-color: #ffffff !important;
+}
+</style>
+<style>
+.todo_box {
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+
+.done {
+	color: #999;
+	text-decoration: line-through;
+}
+
+.scrollBlind {
+	height: 20%;
+	overflow-y: scroll;
+}
+
+.todo-list>li {
+	background: #ffffff;
+	margin-right: 8px;
+	margin-bottom: 3px;
+}
+
+.todo_box .btn-warning {
+	margin-right: 5px;
 }
 </style>
 </head>
 <body>
 
-<div class="wrapper">
-	<tiles:insertDefinition name="header" />
-	
+	<div class="wrapper">
+		<tiles:insertDefinition name="header" />
 
-	<!-- 전체영역 -->
-	<div class="content-wrapper">
 
-		<!-- 콘텐츠 헤더 -->
-		<section class="content-header">
-			<h1>
-        My page    
-        <small>${sessionScope.name} 님의 마이페이지 입니다.</small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">MyPage</a></li>
-  </ol>
-<hr id="hr_style"/>
-		<!-- 콘텐츠 -->
-		<section class="content">
-			<!-- 은주 코딩 -->
-<div class="row" style="margin-bottom: 10px;">
-	<div class="col-md-6">
-		<a class="btn btn-app btn-block m" onclick = "location.href='SearchUserForm'" style="margin-bottom: 0px;margin-left: 0px;padding-bottom: 50px;"><i class="fa fa-user"></i> 팀원 검색</a>
-	</div>
-	<div class="col-md-6" >
-		<a class="btn btn-app btn-block pp" onclick = "location.href='SearchTeamForm'" style="margin-bottom: 0px;margin-left: 0px;padding-bottom: 50px;"><i class="fa fa-users"></i> 프로젝트 검색</a>
-	</div>
-	<br><br>
-</div>
-<div class="out">
-<div class="row">
-        <div class="col-xs-12">              
-          <div class="box box-warning">
-            <div class="box-header">
-              <h3 class="box-title" style="text-align: left !important;"><i class="fa fa-fw fa-bell text-yellow"></i> 최근 알림</h3>
+		<!-- 전체영역 -->
+		<div class="content-wrapper">
 
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-          <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
-
-          <div class="input-group-btn">
-            <!-- <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button> -->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body table-responsive no-padding">
-      <table class="table table-hover">
-        <tr>                  
-          <th>알림내용</th>
-          <th>보낸이</th>
-          <th>수신일</th>                  
-        </tr>
-        <c:if test="${projectApplyAlarm_size > 0 }">
-        <c:forEach items="${projectApplyAlarm}" var="alarm">
-        <tr>                                  
-          <td>"${alarm.pj_name}" 프로젝트 <small class="badge bg-light-blue-activeblue">${alarm.a_type}신청</small></td>
-          <td>${alarm.sender }</td>
-          <td>
-	<c:set var="reg" value="${fn:substring(alarm.a_date,0,10)}" />${reg}</td>                  
-        </tr>
-        </c:forEach>
-        </c:if>
-        <c:if test="${projectApplyAlarm_size == 0 }">
-        <tr>
-        	<td colspan=3> 참가 알림 내역이 존재하지 않습니다.</td>
-        </tr>
-        </c:if>
-        <c:if test="${projectProposalAlarm_size >0 }">
-         <c:forEach items="${projectProposalAlarm}" var="projectProposalAlarm">
-        <tr>
-        <td>${projectProposalAlarm.name} 프로젝트  <small class="badge bg-green">${projectProposalAlarm.a_type}신청</small>
-		</td>
-		<td>
-			${projectProposalAlarm.sender}
-		</td>
-		<td>
-		<c:set var="dayday" value="${fn:substring(projectProposalAlarm.a_date,0,10)}" />
-				${dayday}
-		</td>
-        </tr>
-        </c:forEach>
-        </c:if>
-        <c:if test="${projectProposalAlarm_size == 0 }">
-        	 <tr>
-        	<td colspan=3> 초대 알림 내역이 존재하지 않습니다.</td>
-        </tr>
-        </c:if>
-        
-      </table>
-    </div>
-    <!-- /.box-body -->
-  </div>
-  <!-- /.box -->
-        </div>
-      </div>
-
-<div class="out">
-<div class="row">    
-        <div class="col-xs-12">    
-          <div class="box box-primary">
-            <div class="box-header">
-              <h3 class="box-title" style="text-align: left !important;"><i class="fa fa-fw fa-rocket" style="color: #289bde;"></i>진행 중인 프로젝트</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-          <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
-
-          <div class="input-group-btn">
-            <!-- <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button> -->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body table-responsive no-padding">
-      <table class="table table-hover">
-        <tr>                  
-          <th>프로젝트명</th>
-          <th>프로젝트 기간</th>
-        </tr>
-        <c:forEach items="${ongoing_list}" var="ongoing_list">
-   <tr>
-      <td>${ongoing_list.pj_name}</td>
-      <td>
-      <c:set var="start" value="${fn:substring(ongoing_list.start_d,0,10)}" />
-      <c:set var="end" value="${fn:substring(ongoing_list.end_d,0,10)}" />
-         ${start} ~ ${end}        
-      </td> 
-      <td>
-        </c:forEach>
-      </table>
-    </div>
-    <!-- /.box-body -->
-  </div>
-  <!-- /.box -->
-        </div>
-      </div>
-</div>
-</div>
-			
-			<!-- 성희 코딩 -->
-			<div class="box box-danger todo_box">
-			
-	            <div class="box-header ui-sortable-handle" style="cursor: move;padding-left: 15px;">
-	               <i class="ion ion-clipboard"></i>
-	              <h3 class="box-title">To Do List</h3>
-	            </div>
-	            <!-- /.box-header -->
-            
-	            <div class="box-body">
-		            <div class="scrollBlind">
-						<ui id="todos" class="clearfix todo-list ui-sortable"></ui>
+			<!-- 콘텐츠 헤더 -->
+			<section class="content-header">
+				<h1>
+					My page <small>${sessionScope.name} 님의 마이페이지 입니다.</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="#">MyPage</a></li>
+				</ol>
+				<hr id="hr_style" />
+				<!-- 콘텐츠 -->
+				<section class="content">
+					<!-- 은주 코딩 -->
+					<div class="row" style="margin-bottom: 10px;">
+						<div class="col-md-6">
+							<a class="btn btn-app btn-block m"
+								onclick="location.href='SearchUserForm'"
+								style="margin-bottom: 0px; margin-left: 0px; padding-bottom: 50px;"><i
+								class="fa fa-user"></i> 팀원 검색</a>
+						</div>
+						<div class="col-md-6">
+							<a class="btn btn-app btn-block pp"
+								onclick="location.href='SearchTeamForm'"
+								style="margin-bottom: 0px; margin-left: 0px; padding-bottom: 50px;"><i
+								class="fa fa-users"></i> 프로젝트 검색</a>
+						</div>
+						<br>
+						<br>
 					</div>
-					<br>
-					
-					<!-- 검색창 -->			
-					<div class="todo-inputBox input-group">
-						<input type="text" id="todo-input" class="form-control"	placeholder="할 일을 입력해주세요" maxlength="30" /> 
-						<span class="input-group-addon" id="submit-button">입력</span>
+					<div class="out">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="box box-warning">
+									<div class="box-header">
+										<h3 class="box-title" style="text-align: left !important;">
+											<i class="fa fa-fw fa-bell text-yellow"></i> 최근 알림
+										</h3>
+
+										<div class="box-tools">
+											<div class="input-group input-group-sm" style="width: 150px;">
+												<!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
+
+												<div class="input-group-btn">
+													<!-- <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button> -->
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body table-responsive no-padding">
+										<table class="table table-hover">
+											<tr>
+												<th>알림내용</th>
+												<th>보낸이</th>
+												<th>수신일</th>
+											</tr>
+											<c:if test="${!empty projectApplyAlarm}">
+												<c:forEach items="${projectApplyAlarm}" var="alarm">
+													<tr>
+														<td>"${alarm.pj_name}" 프로젝트 <small
+															class="badge bg-light-blue-activeblue">${alarm.a_type}신청</small></td>
+														<td>${alarm.sender }</td>
+														<td><c:set var="reg"
+																value="${fn:substring(alarm.a_date,0,10)}" />${reg}</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+											<c:if test="${empty projectApplyAlarm}">
+												<tr>
+													<td colspan=3>참가 알림 내역이 존재하지 않습니다.</td>
+												</tr>
+											</c:if>
+											<c:if test="${!empty projectProposalAlarm}">
+												<c:forEach items="${projectProposalAlarm}"
+													var="projectProposalAlarm">
+													<tr>
+														<td>${projectProposalAlarm.name}프로젝트 <small
+															class="badge bg-green">${projectProposalAlarm.a_type}신청</small>
+														</td>
+														<td>${projectProposalAlarm.sender}</td>
+														<td><c:set var="dayday"
+																value="${fn:substring(projectProposalAlarm.a_date,0,10)}" />
+															${dayday}</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+											<c:if test="${empty projectProposalAlarm}">
+												<tr>
+													<td colspan=3>초대 알림 내역이 존재하지 않습니다.</td>
+												</tr>
+											</c:if>
+
+										</table>
+									</div>
+									<!-- /.box-body -->
+								</div>
+								<!-- /.box -->
+							</div>
+						</div>
+
+						<div class="out">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="box box-primary">
+										<div class="box-header">
+											<h3 class="box-title" style="text-align: left !important;">
+												<i class="fa fa-fw fa-rocket" style="color: #289bde;"></i>진행
+												중인 프로젝트
+											</h3>
+
+											<div class="box-tools">
+												<div class="input-group input-group-sm"
+													style="width: 150px;">
+													<!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
+
+													<div class="input-group-btn">
+														<!-- <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button> -->
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /.box-header -->
+										<div class="box-body table-responsive no-padding">
+											<table class="table table-hover">
+												<tr>
+													<th>프로젝트명</th>
+													<th>프로젝트 기간</th>
+												</tr>
+												<c:forEach items="${ongoing_list}" var="ongoing_list">
+													<tr>
+														<td>${ongoing_list.pj_name}</td>
+														<td><c:set var="start"
+																value="${fn:substring(ongoing_list.start_d,0,10)}" /> <c:set
+																var="end"
+																value="${fn:substring(ongoing_list.end_d,0,10)}" />
+															${start} ~ ${end}</td>
+														<td>
+												</c:forEach>
+											</table>
+										</div>
+										<!-- /.box-body -->
+									</div>
+									<!-- /.box -->
+								</div>
+							</div>
+						</div>
 					</div>
-					
-	            </div>
-	            
-	            <div class="box-footer clearfix no-border">
-	              	<button type="button" id="removeAll" class="btn btn-danger pull-right btn-sm">모두 삭제</button> 
-	              	<button type=button id="removeAllChecked" class="btn btn-warning pull-right btn-sm">완료된 항목 삭제</button>
-	            </div>
-            
-          </div>
-		</section>
-			
+
+					<!-- 성희 코딩 -->
+					<div class="box box-danger todo_box">
+
+						<div class="box-header ui-sortable-handle"
+							style="cursor: move; padding-left: 15px;">
+							<i class="ion ion-clipboard"></i>
+							<h3 class="box-title">To Do List</h3>
+						</div>
+						<!-- /.box-header -->
+
+						<div class="box-body">
+							<div class="scrollBlind">
+								<ui id="todos" class="clearfix todo-list ui-sortable"></ui>
+							</div>
+							<br>
+
+							<!-- 검색창 -->
+							<div class="todo-inputBox input-group">
+								<input type="text" id="todo-input" class="form-control"
+									placeholder="할 일을 입력해주세요" maxlength="30" /> <span
+									class="input-group-addon" id="submit-button">입력</span>
+							</div>
+
+						</div>
+
+						<div class="box-footer clearfix no-border">
+							<button type="button" id="removeAll"
+								class="btn btn-danger pull-right btn-sm">모두 삭제</button>
+							<button type=button id="removeAllChecked"
+								class="btn btn-warning pull-right btn-sm">완료된 항목 삭제</button>
+						</div>
+
+					</div>
+				</section>
+		</div>
+		<!-- /content-wrapper -->
+		<tiles:insertDefinition name="left" />
+		<tiles:insertDefinition name="footer" />
 	</div>
-	<!-- /content-wrapper -->
-	<tiles:insertDefinition name="left" />
-	<tiles:insertDefinition name="footer" />
-</div>
 
 </body>
-<style>
-	.todo_box{
-		position: relative; left: 0px; top: 0px;
-	}
-	.done{
-		color: #999; text-decoration: line-through;
-	}
-	.scrollBlind{
-	    height:20%; overflow-y:scroll;
-	}
-	.todo-list>li{
-	    background: #ffffff; margin-right: 8px; margin-bottom: 3px;
-	}
-	.todo_box .btn-warning {
-		margin-right: 5px;
-	}
-</style>
 
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/LSH/JS/error.js"></script>

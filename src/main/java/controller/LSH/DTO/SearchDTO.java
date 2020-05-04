@@ -8,8 +8,8 @@ public class SearchDTO {
 	private String[] local;
 	private double eval;
 	private String keyword;
-	private String sort;
-	private String sort_way;
+	private String sort ="joindate";
+	private String sort_way = "DESC";
 	private int startRow;
 	private int endRow;
 	

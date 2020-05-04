@@ -38,7 +38,7 @@
 					</div>
 				          
 					<div class="widget-user-image">
-						<img class="profile-user-img img-responsive img-circle" src="" alt="회원 사진" onError="this.src='<%=request.getContextPath() %>/resources/dist/img/user1-128x128.png';">
+						<img class="profile-user-img img-responsive img-circle" src="" alt="회원 사진">
 					</div>
 				 
 					<div class="box-footer">

@@ -19,7 +19,7 @@
 
 	<!-- bean scan -->
 	<context:annotation-config />         
-	<context:component-scan base-package="controller" />
+	<context:component-scan base-package="controller, exception" />
 	
 	<!-- viewResolver -->
 	<bean id="beanViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1" />
@@ -32,10 +32,10 @@
 	<!-- DB connect -->
 	<context:property-placeholder location = "classpath:db.properties" />
 	
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<property name="driverClass" value="${jdbc.driver}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 	
@@ -48,17 +48,16 @@
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
     
-<!--     <jdbc:initialize-database data-source="dataSource">
-	    <jdbc:script location="classpath:com/foo/sql/db-schema.sql"/>
-	    <jdbc:script location="classpath:com/foo/sql/db-test-data.sql"/>
-	</jdbc:initialize-database> -->
+    <jdbc:initialize-database data-source="dataSource" enabled="true" ignore-failures="DROPS">
+	    <jdbc:script location="classpath:sql/db-schema.sql"/>
+	</jdbc:initialize-database>
 	
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 	<!-- Interceptor -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/aus/*"/>
+			<mvc:mapping path="/aus/**"/>
 			<bean class="interceptor.UserInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>	
@@ -91,10 +90,6 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 	
-	<bean id="lsh" class="dao.LSH">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	</bean>
-	
 	<bean id="phe" class="dao.PHE">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
@@ -124,20 +119,12 @@
 			<websocket:sockjs/>
 		</websocket:handlers>
 	
- 		<mvc:annotation-driven>
-			<mvc:message-converters>
-				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-					<property name="supportedMediaTypes">
-						<list>
-							<value>
-								text/html;charset=UTF-8
-							</value>
-						</list>
-					</property>
-				</bean>
-			</mvc:message-converters>
+		<mvc:annotation-driven>
+		     <mvc:message-converters>
+		            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+		            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+		   </mvc:message-converters>
 		</mvc:annotation-driven>
-		
 		
 		<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.gmail.com" />

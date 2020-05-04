@@ -4,7 +4,8 @@ function level1(){
 	$.ajax({
 		type:"post",
 		url:url,
-		dataType:"json",
+		dataType:"JSON",
+		contentType : "application/json",
 		success:function(args){
 			var i = 0,
 			    array = [],
@@ -21,11 +22,8 @@ function level1(){
 			}
 			$("#local1").html(array.join(''));
 			
-			init_level2("job1");
-			init_level2("local1");
-		},
-		error:function(e){
-			alert(e.responseText);
+//			init_level2("job1");
+//			init_level2("local1");
 		}
 	});
 }
@@ -59,12 +57,28 @@ function real_level2(url,params,id){
 			for (var idx = 0; idx < args.list.length; idx++) {
 				$("#" + id).append("<option value='"+args.list[idx]+"'>"+ args.list[idx] + "</option>");
 			}
-		},
-		error : function(e) {
-			alert(e.responseText);
 		}
 	});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function add(element) {
 	var list = [],
