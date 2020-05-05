@@ -4,28 +4,21 @@ function profile(userid){
 	$.ajax({
 		type:"get",
 		url:url,
-		data:{	"id": userid
-			},
+		data:{"id": userid},
 		dataType:"json",
-		beforeSend: function(xmlHttpRequest){
-			xmlHttpRequest.setRequestHeader("AJAX","true");	
-		},
 		success:function(args){
 			
 			global.pj_num = 0;
 			global.receiver = userid;
 			
-			load_head(args.x.profile);
+			load_head(args.profile);
 			
-			if(args.x.port.length>0){
+			if(args.port.length>0){
 				load_port(args.x.port);
 			}
-			if(args.x.review.length>0){
-				load_review(args.x.review);
+			if(args.review.length>0){
+				load_review(args.review);
 			}
-		},
-		error : function(xhr,textStatus,error) {
-			warn(xhr.status);
 		}
 	});
 }
@@ -85,10 +78,9 @@ function load_port(data){
 }
 
 function load_review(data){
+	var html = "";
 	
-	var html = "",
-		i = 0;
-	for(;i<data.length;i+=1){
+	for(i = 0;i<data.length;i+=1){
 		html += "<tr><td>"+data[i]+"</td></tr>";
 	}
 	$('.review_table tbody').html(html);
@@ -109,12 +101,10 @@ function remove_data(){
 /////////////////////////////////////////////////친구추가///////////////////////////////////////////////////////
 
 $('body').on('click','.follow_btn', function() {
-	console.log("11.친구추가");
 	follow("add");
 });
 
 $('body').on('click','.unfollow_btn', function() {
-	console.log("12.친구제거");
 	follow("del");
 });
 
@@ -124,15 +114,11 @@ function follow(status){
 	var count = Number($('.follower-count').text());
 	var params = "id="+id+"&login_id="+getSessionId()+"&status="+status;
 
-		$.ajax({
+	$.ajax({
 		type:"post",
 		url:url,
 		data: params,
-		beforeSend: function(xmlHttpRequest){
-			xmlHttpRequest.setRequestHeader("AJAX","true");	
-		},
 		success:function(args){
-			console.log("[*]팔로우도착");
 			if(status === "add"){
 				$('#follow_btn').attr('class','btn btn-primary btn-block unfollow_btn');
 				$('#follow_btn').html('<b>Unfollow</b>');

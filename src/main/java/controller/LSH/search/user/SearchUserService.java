@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import controller.LSH.DTO.PagingDTO;
-import controller.LSH.DTO.ResultDTO;
-import controller.LSH.DTO.SearchDTO;
 import controller.LSH.search.SearchCommonService;
 import project.DTO.AlarmDTO;
 import utils.CommonUtils;
@@ -26,12 +23,7 @@ public class SearchUserService{
 	@Autowired
 	private SearchCommonService service;
 	
-	public List<ResultDTO> getSearchUser(String id){
-		List<ResultDTO> Recomend_User = recommend_User(id);
-		return Recomend_User;
-	}
-	
-	public Map<String,Object> postSearchUser(String id, SearchDTO dto){
+	public Map<String,Object> getSearchUser(String id, SearchDTO dto){
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("recomend", recommend_User(id));
 		result.put("pdto", paging(dto,0));
@@ -42,7 +34,7 @@ public class SearchUserService{
 		Map<String,Object> map = service.getMy_fav(id);
 		List<ResultDTO> list = new ArrayList<ResultDTO>();
 		
-		if(id.equals(CommonUtils.admin)) {return list;}
+		if(id.equals(CommonUtils.ADMIN)) {return list;}
 		
 		list = dao.recommend_User("LSH_AUS.recommend_User",map);
 		int len = list.size();
@@ -59,12 +51,6 @@ public class SearchUserService{
 		return list;
 	}
 	
-	public int insert_Message(AlarmDTO dto){
-		int x = dao.insert_Message("LSH_AUS.insert_A", dto);
-		return x;
-	}
-	
-	
 	public PagingDTO paging(SearchDTO dto,int pageNum) {
 		if(pageNum == 0) { pageNum = 1;}
 
@@ -80,9 +66,6 @@ public class SearchUserService{
 		if(pageCount < endPage) {
 			endPage = pageCount;
 		}
-		
-//		System.out.print("::현재페이지"+pageNum+"::전체"+rowCount+"~첫글 번호"+startRow+"~끝글번호"+endRow);
-//		System.out.println("::페이지수 "+pageCount+" ::시작페이지 "+startPage+" ::끝페이지 "+endPage);
 		
 		dto.setStartRow(startRow);
 		dto.setEndRow(endRow);

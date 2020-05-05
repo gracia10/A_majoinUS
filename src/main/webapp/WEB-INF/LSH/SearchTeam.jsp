@@ -38,6 +38,24 @@
 	td{ 
 		vertical-align: middle !important;
 	}
+			.sort_area {
+			float: left;
+		}
+		.on{
+			color:black;
+			font-weight:bold;
+		}
+		
+		.content-header a{
+			margin-top: 15px;
+	   		top: 0;
+	   		float: none;
+	   		position: absolute;
+	   		right: 13px;
+	   		border-radius: 2px;
+	   		padding: 8px 15px;
+	   		margin-bottom: 20px;
+		}
 </style>
 </head>
 <body>
@@ -64,7 +82,7 @@
 				<div class="box-header with-border"><h3 class="box-title">프로젝트 검색</h3></div>
 							
 				<!-- 검색창 폼시작 -->
-				<form id="SearchForm" method="post" class="form-horizontal">
+				<form id="SearchForm" method="get" class="form-horizontal">
 
 					<!-- 셀렉터 바디 -->
 					<div class="box-body">
@@ -109,11 +127,25 @@
 						<input type="hidden" id="sort_way" name="sort_way" value="${command.sort_way}">
 						<input type="hidden" id="checking" name="checking" value="${command.checking}">
 						
-						<div title="넘겨질 job과 local" id="hidden"></div>
-	
 						<hr>
 						검색조건<br>
-						<div id="result"></div>
+						<div id="result">
+							<div id="job_list">
+								<c:forEach var="item" items="${command.job}">
+									<span>
+										<input type="hidden" name="job" value="${item}">${item}<i class='fa fa-fw fa-times-circle del_btn'></i>
+									</span>
+								</c:forEach>
+							</div>
+							<br/>
+							<div id="local_list">
+								<c:forEach var="item" items="${command.local}">
+									<span>
+										<input type="hidden" name="local" value="${item}">${item}<i class='fa fa-fw fa-times-circle del_btn'></i>
+									</span>
+								</c:forEach>
+							</div>
+						</div>
 							
 					</div>
 	
@@ -260,11 +292,11 @@
 </div>
 	<script src="<%=request.getContextPath()%>/resources/LSH/JS/category.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/LSH/JS/Cart.js"></script>
-	
 	<script src="<%=request.getContextPath()%>/resources/LSH/JS/User.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/LSH/JS/Team.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/LSH/JS/Wanna_Project.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/LSH/JS/issue.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/LSH/JS/error.js"></script>
 	   
 	<!-- 기본 이벤트  -->
 	<script>
@@ -272,7 +304,6 @@
 		
 		function initPage() {
 			level1();
-			show_search_tag();
 			show_sort();
 			$('.pagination #${pdto.pageNum}').addClass("active");
 			getCartList();
@@ -295,7 +326,6 @@
 		}
 		
 		var global = {
-			    i : 0,
 			    origin_d : "",
 			    receiver : "",
 			    pj_num: 0,
@@ -316,7 +346,6 @@
  			for(var j=1;j<len;j+=1){
  				for(var i=0;i<len2;i+=1){
 					if($("#result_table tr:eq("+j+")").attr('id') === global.cart_list[i]){
- 						console.log("일치함");
  						$("#result_table tr:eq("+j+") td:eq(0)").html('<a href="#" id="star_btn" class="star"><i class="fa fa-fw fa-star text-yellow"></i></a>');
  					}
  				}
@@ -328,70 +357,32 @@
 	<!-- 검색창 이벤트 -->
 	<script>
 	$('.clear_btn').on('click', function() {
-		console.log("5.초기화");
-		clear();
-	});
-	
-	$(".date_btn").on('change', function() {
-		console.log("6.날짜검사");
-		check_date();
-	});
-	
-	function show_search_tag() {
-		
-		var html1 = "<div id='job_list'>",
-			html2 = "";
-
-		<c:forEach var="item" items="${command.job}">
-			html1 += "<span id="+global.i+">${item}<span id="+global.i+" class='del_btn' ><i class='fa fa-fw fa-times-circle'></i></span></span>";
-			html2 += "<input type='hidden' id='"+global.i+"' name='job' value='${item}'>"
-			global.i++;
-		</c:forEach>
-
-			html1 += "</div><br><div id='local_list'>";
-
-		<c:forEach var="item" items="${command.local}" >
-			html1 += "<span id="+global.i+">${item}<span id="+global.i+" class='del_btn'><i class='fa fa-fw fa-times-circle'></i></span></span>"; 
-			html2 += "<input type='hidden' id='"+global.i+"' name='local' value='${item}'>"
-			global.i++;
-		</c:forEach>
-
-			html1 += "</div>";
-
-			$('#result').append(html1);
-			$('#hidden').append(html2);
-	}
-
-	function clear() {
 		$(".date_btn").val('');
 		$("#keyword").val('');
 		$("#job_list").empty();
 		$("#local_list").empty();
-		$("#hidden").empty();
-	}
+	});
 	
-	function check_date(){
+	$(".date_btn").on('change', function() {
 		var start_d = $('#start_d').val();
 		var end_d = $('#end_d').val();
 		
 		if(end_d && end_d < start_d){
 			alert("종료일보다 빠를 수 없습니다.")
 			$("#end_d").val('');
-		}	
-	}
+		}
+	});
 	</script>
 	
 	<!-- 정렬이벤트 -->
 	<script>
 	
 	$('.sort-btn').on('click', function() {
-		console.log("7.정렬변경");
 		sort_change(this);
  		sort("pageNum="+getPageNum());
 	});
 
 	$('.pagination').on('click','.page_btn', function() {
-		console.log("8.페이징");
 		sort("pageNum="+$(this).attr("id"));
 	});
 	
@@ -399,11 +390,9 @@
 		var params = "pageNum="+getPageNum();
 		
 		if($("#checkbox").is(":checked")){
-			console.log("9.체크 박스");
 			$('#checking').val('y');
 			sort(params);
 		}else{
-        	console.log("10.언체크 박스");
         	$('#checking').val('');
         	sort(params);
         }
@@ -440,26 +429,21 @@
 	}
 	
 	function sort(paramStr) {
-		var url="<%=cp%>/aus/TeamSort";
+		var url="<%=cp%>/aus/teamSort";
 		var params = $("#SearchForm").serialize()+"&"+paramStr;
-
-		console.log(params);
 		
- 			$.ajax({
-				type : "post",
-				url : url,
-				data : params,
-				dataType: "json",
-				success : function(args) {
-					show_sort();
-					show_mem_list(args.pdto.list);
-					page_btn(args.pdto);
-					count_total(args.pdto.rowCount)
-				},
-				error : function(e) {
-					alert(e.responseText);
-				}
-			});
+		$.ajax({
+			type : "get",
+			url : url,
+			data : params,
+			dataType: "json",
+			success : function(pdto) {
+				show_sort();
+				show_mem_list(pdto.list);
+				page_btn(pdto);
+				count_total(pdto.rowCount)
+			}
+		});
 	}
 	
 	// 기존 tr 검색결과 제거. 검색결과 append
@@ -520,31 +504,10 @@
 	<!-- 유저 프로필  -->
 	<script>
 	$('body').on('click','.user_btn', function() {
-		console.log("12.[유저 프로필]");
 		remove_data();
 		profile($(this).attr('id'));
 	});
 	</script>
 	
 </body>
-	<style>
-		.sort_area {
-			float: left;
-		}
-		.on{
-			color:black;
-			font-weight:bold;
-		}
-		
-		.content-header a{
-			margin-top: 15px;
-	   		top: 0;
-	   		float: none;
-	   		position: absolute;
-	   		right: 13px;
-	   		border-radius: 2px;
-	   		padding: 8px 15px;
-	   		margin-bottom: 20px;
-		}
-	</style>
 </html>

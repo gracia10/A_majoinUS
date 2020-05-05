@@ -23,7 +23,7 @@ public class ProejctRoomController {
 	
 	@GetMapping(value="/Main")
 	public String getMain(@RequestParam(value="pj_Num") int pj_Num, Model model) {
-		String id= (String) CommonUtils.getAttribute(CommonUtils.id);
+		String id= (String) CommonUtils.getAttribute(CommonUtils.ID);
 		Map<String,Object> map = service.getMain(id, pj_Num);
 		map.forEach((k,v)-> model.addAttribute(k,v));
 		

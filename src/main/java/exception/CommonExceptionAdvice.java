@@ -68,6 +68,7 @@ public class CommonExceptionAdvice {
 	}
 	
 	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	protected ModelAndView commonException(Exception e) {
 		logger.error("Exception Occure {}", e);
 		

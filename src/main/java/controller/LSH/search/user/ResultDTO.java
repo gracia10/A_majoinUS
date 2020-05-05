@@ -1,4 +1,4 @@
-package controller.LSH.DTO;
+package controller.LSH.search.user;
 
 public class ResultDTO {
 
@@ -27,7 +27,7 @@ public class ResultDTO {
 		return u_img;
 	}
 	public void setU_img(String u_img) {
-		this.u_img = u_img;
+		this.u_img = (u_img.equalsIgnoreCase("null"))? "" : u_img;
 	}
 	public String getF_loc() {
 		return f_loc;

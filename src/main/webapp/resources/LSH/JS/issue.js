@@ -18,13 +18,10 @@ $('body').on('hide.bs.modal','.modal', function (e) {
 })
 
 $("body").on('click','.popover-cancel', function() {
-	console.log("[신고 취소]");
 	$("[data-toggle=popover]").popover('hide');
 });
 
 $("body").on('click','.popover-submit', function() {
-	console.log("[신고 전송]");
-	
 	var content = $('.popover-textarea').val();
 	
 	if(content.trim().length < 10){
@@ -43,25 +40,12 @@ function issue(params){
 		url:url,
 		data: params,
 		dataType:"json",
-		beforeSend: function(xmlHttpRequest){
-			xmlHttpRequest.setRequestHeader("AJAX","true");	
-		},
-		success:function(args){
-			if(args.x === -1){
+		success:function(result){
+			if(result === -1){
 				alert("신고횟수를 초과하였습니다");
 			}else{
 				alert("신고완료되었습니다");					
 			}
-		},
-		error : function(xhr,textStatus,error) {
-			warn(xhr.status);
 		}
 	});
-}
-
-function warn(e){
-	if(e=="400"){
-		alert('로그아웃 되었습니다');
-	}
-	location.href="/A_majoinUS/aus/main";
 }

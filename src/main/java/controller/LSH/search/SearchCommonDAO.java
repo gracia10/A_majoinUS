@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import controller.LSH.DTO.ProfileDTO;
-import controller.LSH.DTO.ResultDTO;
+import controller.LSH.search.user.ResultDTO;
+import project.DTO.AlarmDTO;
 import project.DTO.IssueDTO;
 
 @Repository
@@ -32,7 +32,6 @@ public class SearchCommonDAO {
 		ResultDTO x = sqlSession.selectOne(mapper, id);
 		return x;
 	}
-
 	//
 	public int map_insert(String mapper, Map<String, Object> m) {
 		int x = sqlSession.insert(mapper, m);
@@ -78,6 +77,11 @@ public class SearchCommonDAO {
 
 	public int update_black(String mapper, String id) {
 		int x = sqlSession.update(mapper, id);
+		return x;
+	}
+	//
+	public int insert_Message(String mapper,AlarmDTO dto){
+		int x = sqlSession.insert(mapper,dto);
 		return x;
 	}
 

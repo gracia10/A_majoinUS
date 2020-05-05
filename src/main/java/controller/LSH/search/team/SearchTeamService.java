@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import controller.LSH.DTO.PagingDTO;
-import controller.LSH.DTO.ResultTeamDTO;
-import controller.LSH.DTO.SearchTeamDTO;
 import controller.LSH.search.SearchCommonService;
+import controller.LSH.search.user.PagingDTO;
 import project.DTO.ProjectroomDTO;
 import utils.CommonUtils;
 
@@ -26,8 +24,9 @@ public class SearchTeamService{
 	@Autowired
 	private SearchCommonService service;
 	
-	public Map<String,Object> getSearchTeam(String id){
+	public Map<String,Object> getSearchTeam(SearchTeamDTO dto,String id){
 		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("pdto", paging(dto,0));
 		result.put("cart", getCart(id));
 		result.put("recomend", getRecomendTeam(id));
 		return result;
@@ -36,7 +35,7 @@ public class SearchTeamService{
 	public List<ResultTeamDTO> getRecomendTeam(String id){
 		Map<String,Object> map = service.getMy_fav(id);
 		List<ResultTeamDTO> recomendList = new ArrayList<ResultTeamDTO>();
-		if(id.equals(CommonUtils.admin)) {return recomendList;}
+		if(id.equals(CommonUtils.ADMIN)) {return recomendList;}
 		
 		recomendList = dao.recommend_Team("LSH_AUS.recommend_Team",map);
 		int len = recomendList.size();
@@ -46,14 +45,6 @@ public class SearchTeamService{
 			}
 		}
 		return recomendList;
-	}
-	
-	public Map<String,Object> postSearchTeam(SearchTeamDTO dto,String id){
-		Map<String,Object> result = new HashMap<String,Object>();
-		result.put("pdto", paging(dto,0));
-		result.put("cart", getCart(id));
-		result.put("recomend", getRecomendTeam(id));
-		return result;
 	}
 	
 	public int favorite(int pj_num,String id,String status){

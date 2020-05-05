@@ -1,5 +1,4 @@
 	$('body').on('click','.Team_btn', function() {
-		console.log("11-1.[프로젝트룸] "+getSessionId());
 		global.pj_num = 0;
 		global.receiver = "";
 		remove_Teamdata();
@@ -7,7 +6,6 @@
 	});
 	
 	$('body').on('click','.recomend_btn, .review_btn', function() {
-		console.log("11-2.[추천&리뷰 프로젝트룸] "+getSessionId());
 		global.pj_num = 0; 
 		global.receiver = "";
 		remove_Teamdata();
@@ -18,18 +16,12 @@
 	function projectRoom(pj_num){
 		var url=getContext()+"/aus/ProjectProfile";
 		$.ajax({
-			type:"post",
+			type:"get",
 			url:url,
 			data:{"pj_num": pj_num},
 			dataType:"json",
-			beforeSend: function(xmlHttpRequest){
-				xmlHttpRequest.setRequestHeader("AJAX","true");	
-			},
 			success:function(args){
-				load_projectRoom(args.x);
-			},
-			error : function(xhr,textStatus,error) {
-				warn(xhr.status);
+				load_projectRoom(args);
 			}
 		});
 	}
@@ -74,13 +66,5 @@
 	}
 	
 	$('#modal_Team').on('hide.bs.modal', function (e) {
-		console.log("팝오버제거");
 		$("[data-toggle=popover]").popover('hide');
 	})
-	
-	function warn(e){
-		if(e=="400"){
-			alert('로그아웃 되었습니다');
-		}
-		location.href="/A_majoinUS/aus/main";
-	}

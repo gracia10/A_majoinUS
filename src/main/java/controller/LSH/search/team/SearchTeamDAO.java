@@ -7,8 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import controller.LSH.DTO.ResultTeamDTO;
-import controller.LSH.DTO.SearchTeamDTO;
 import controller.LSH.search.SearchCommonDAO;
 import project.DTO.ProjectroomDTO;
 

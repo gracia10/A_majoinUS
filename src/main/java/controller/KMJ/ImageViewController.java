@@ -24,7 +24,7 @@ public class ImageViewController {
 		
 		String rpath = req.getSession().getServletContext().getRealPath("/resources/dist/img/user1-128x128.jpg");
 		
-		if(!StringUtils.isEmpty(imagePath)) {
+		if(!StringUtils.isEmpty(imagePath) && !imagePath.equalsIgnoreCase("null")) {
 			rpath = "d:\\item\\profile\\" + imagePath;
 		}
 		

@@ -8,8 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import controller.LSH.DTO.ResultDTO;
-import controller.LSH.DTO.SearchDTO;
 import project.DTO.AlarmDTO;
 
 @Repository
@@ -36,10 +34,5 @@ public class SearchUserDAO{
 	public List<HashMap<String,Object>> getMyProject(String mapper,String id){
 		List<HashMap<String,Object>> list = sqlSession.selectList(mapper,id);
 		return list;
-	}
-	
-	public int insert_Message(String mapper,AlarmDTO dto){
-		int x = sqlSession.insert(mapper,dto);
-		return x;
 	}
 }

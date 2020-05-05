@@ -24,7 +24,7 @@ public class MypageController {
 	@GetMapping("/MyPageMain")
 	public String getMypage(Model model){
 		
-		String receiver =(String) CommonUtils.getAttribute(CommonUtils.id);
+		String receiver =(String) CommonUtils.getAttribute(CommonUtils.ID);
 		
 		Map<String,List> map = service.getMypage(receiver);
 		map.forEach((k,v)-> model.addAttribute(k,v));

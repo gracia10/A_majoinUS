@@ -1,4 +1,4 @@
-package controller.LSH.DTO;
+package controller.LSH.search.user;
 
 import java.util.List;
 
