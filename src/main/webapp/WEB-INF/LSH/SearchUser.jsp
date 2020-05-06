@@ -338,13 +338,14 @@
 		$("#job_list").empty();
 		$("#local_list").empty();
 	});
+	
 	</script>
 
 	<!-- 정렬이벤트 -->
 	<script>
 	$('.sort-btn').on('click', function() {
 		sort_change(this);
-		sort($(this).attr("id"));
+		sort(getPageNum());
 	});
 
 	$('.pagination').on('click','.page_btn', function() {
@@ -439,6 +440,13 @@
 		$('.pagination').append(html);
 		$('.pagination #'+pdto.pageNum).addClass("active");
 	}
+
+	function getPageNum(){
+		var pageNum = $('.pagination .active').attr('id');
+		return (pageNum === undefined)? 1 : pageNum;
+	}
+	</script>
+	
 	</script>
 	
 	<!-- 유저 모달  -->

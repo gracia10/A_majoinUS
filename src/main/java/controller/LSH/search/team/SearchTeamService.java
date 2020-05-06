@@ -26,9 +26,9 @@ public class SearchTeamService{
 	
 	public Map<String,Object> getSearchTeam(SearchTeamDTO dto,String id){
 		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("recomend", getRecomendTeam(id));
 		result.put("pdto", paging(dto,0));
 		result.put("cart", getCart(id));
-		result.put("recomend", getRecomendTeam(id));
 		return result;
 	}
 	

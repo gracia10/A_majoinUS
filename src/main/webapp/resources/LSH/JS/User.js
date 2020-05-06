@@ -14,7 +14,7 @@ function profile(userid){
 			load_head(args.profile);
 			
 			if(args.port.length>0){
-				load_port(args.x.port);
+				load_port(args.port);
 			}
 			if(args.review.length>0){
 				load_review(args.review);

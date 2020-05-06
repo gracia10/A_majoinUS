@@ -57,8 +57,10 @@ public class SearchCommonService {
 		int x = 0;
 		if(status.equals("add")) {
 			x = dao.map_insert("LSH_AUS.follow", m);
+			m.put("num", 1);
 		}else {
 			x = dao.map_delete("LSH_AUS.unfollow", m);
+			m.put("num", -1);
 		}
 		x = dao.map_update("LSH_AUS.follow_update", m);
 		return x;

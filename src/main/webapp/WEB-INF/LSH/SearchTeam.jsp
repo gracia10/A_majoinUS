@@ -91,7 +91,7 @@
 						<div class="form-group row">
 							<label for="job1" class="col-sm-2 control-label">관심직종</label>
 							<div class="col-sm-10">
-								<select id="job1" class="show-level2"></select>&ensp;<select id="job12"></select>
+								<select id="job1" class="show-level2"></select>&ensp;<select id="job2"></select>
 								<button type="button" value="job" class="add_btn btn btn-xs btn-default"><i class="fa fa-fw fa-plus"></i>추가</button>
 							</div>
 						</div>
@@ -100,7 +100,7 @@
 						<div class="form-group row">
 							<label for="local1" class="col-sm-2 control-label">선호지역</label>
 							<div class="col-sm-10">
-								<select id="local1" class="show-level2"></select>&ensp;<select id="local12"></select>
+								<select id="local1" class="show-level2"></select>&ensp;<select id="local2"></select>
 								<button type="button" value="local" class="add_btn btn btn-xs btn-default"><i class="fa fa-fw fa-plus"></i>추가</button>
 							</div>
 						</div>
@@ -398,7 +398,7 @@
         }
 	});
 	
-	// 클릭시 정렬버튼효과 추가.//  - 정렬버튼 on 클래스 추가. 기본정렬 아이콘제거. 기존 방향과 다른 방향 아이콘 지정.  
+	// 클릭시 정렬버튼효과 추가
 	function show_sort(){											
 		var what_sort = $('#sort').val()+'_sort';
 		var sort_way = $('#sort_way').val();
@@ -407,11 +407,9 @@
 		$('#'+what_sort+' i').removeClass("fa-sort");			
 		
 		(sort_way === 'DESC')? $('#'+what_sort+' i').addClass("fa-caret-down") : $('#'+what_sort+' i').addClass("fa-caret-up");
-		
-		console.log('[-]정렬 '+ $('.on').attr('id')+'-'+ $('#sort_way').val());
 	}
 	
-	// 클릭시 버튼효과제거. 정렬값 수정 //  - 기존 위아래 정렬 제거. 기본정렬 추가. 클릭한 정렬값으로 정렬변경. 기존 방향과 다른 방향값 지정.  
+	// 클릭시 버튼효과제거. 정렬값 수정 
 	function sort_change(element){
 		$('.on i').removeClass("fa-caret-down fa-caret-up");
 		$('.on i').addClass("fa-sort");
