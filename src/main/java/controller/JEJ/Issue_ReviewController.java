@@ -1,7 +1,5 @@
 package controller.JEJ;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.JEJ;
-import project.DTO.IssueDTO;
+import interceptor.AdminOnly;
 import project.DTO.PageDTO;
-import project.DTO.Review_adminDTO;
 
+@AdminOnly
 @Controller
 public class Issue_ReviewController {
 

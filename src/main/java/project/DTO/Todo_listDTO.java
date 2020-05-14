@@ -1,6 +1,7 @@
 package project.DTO;
 
 public class Todo_listDTO {
+	
 	private String todo_num;
 	private String id;
 	private String todo;

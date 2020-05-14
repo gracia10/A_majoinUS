@@ -11,6 +11,26 @@
 <head> 
 <title>프로젝트룸</title>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<style>
+	.leadermenu{
+	    float: right;
+	    background: transparent;
+	    margin-top: 0;
+	    margin-bottom: 3px;
+	    padding: 5px 5px;
+	    position: absolute;
+	    top: 15px;
+	    right: 10px;
+	    border-radius: 2px;
+	}
+	.leadermenu>li{
+		display: inline-block;
+	}
+	.progress-bar {
+		background: "#f37d7d";
+		
+	}
+</style>
 </head>
 <body>
 <div class="wrapper">
@@ -258,25 +278,4 @@
 
 	</script>
 </body>
-<style>
-	.leadermenu{
-	    float: right;
-	    background: transparent;
-	    margin-top: 0;
-	    margin-bottom: 3px;
-	    padding: 5px 5px;
-	    position: absolute;
-	    top: 15px;
-	    right: 10px;
-	    border-radius: 2px;
-	}
-	.leadermenu>li{
-		display: inline-block;
-	}
-	.progress-bar {
-		background: "#f37d7d";
-		
-	}
-
-</style>
 </html>

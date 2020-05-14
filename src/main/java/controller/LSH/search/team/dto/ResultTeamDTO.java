@@ -1,4 +1,4 @@
-package controller.LSH.DTO;
+package controller.LSH.search.team.dto;
 
 public class ResultTeamDTO {
 

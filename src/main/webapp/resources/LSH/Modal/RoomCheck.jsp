@@ -14,8 +14,12 @@
 			<div class="modal-body text-center"></div>
 
 			<div class="modal-footer">
-				<a href="#" class="send_btn btn btn-danger pull-left" id="${list[0].PJ_NUM}">OK</a> <a
-					href="#" class=" btn btn-default" data-dismiss="modal">CANCLE</a>
+				<form id="roomCheckForm" action="" method="POST">
+					<input type="hidden" id="pj_Num" name="pj_Num" value="${list[0].PJ_NUM}">
+					<input type="hidden" id="info" name="info" value="">
+					<input type="submit" class="send_btn btn btn-danger pull-left">
+					<a href="#" class=" btn btn-default" data-dismiss="modal">CANCLE</a>
+				</form>
 			</div>
 		</div>
 	</div>

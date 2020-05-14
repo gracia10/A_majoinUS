@@ -1,8 +1,5 @@
 package interceptor;
 
-import java.nio.file.AccessDeniedException;
-
-import javax.security.sasl.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,35 +8,39 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import exception.AuthenticationException;
+import exception.AuthorizationException;
+import utils.CommonUtils;
 
-public class UserInterceptor extends HandlerInterceptorAdapter{
+public class UserInterceptor extends HandlerInterceptorAdapter {
 
 	private static Logger logger = LoggerFactory.getLogger(UserInterceptor.class);
 	
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) 
+			throws Exception {
+
+		logger.info("UserInterceptor prehandle job start");
 		
-		String id = (String) request.getSession().getAttribute("id");
-
-		HandlerMethod handlerMethod = (HandlerMethod)handler;
-		NoLoginCheck noCheck = handlerMethod.getMethod().getDeclaringClass().getAnnotation(NoLoginCheck.class);
-
-		if(noCheck == null) {
-			
-			if(id.isEmpty()) {
-				logger.info("[sessionCheck] {}",request.getSession().toString());
-				throw new Exception("로그인 정보가 없습니다 다시 접속해 주세요");			
-			}
-			
-//			if(!id.equals("amajoinus@gmail.com")){
-//				logger.info("[authenticateCheck] {}",id);		
-//				throw new Exception("접근권한이 없습니다");				
-//			}
+		if (handler instanceof HandlerMethod == false) {
+			return super.preHandle(request, response, handler);
 		}
-		return true;
+
+		HandlerMethod hm = (HandlerMethod) handler;
+		String id = CommonUtils.getUserId();
+		
+		if(id == null && !isAnnotationPresent(hm,NoLoginCheck.class)) {
+			throw new AuthenticationException();
+		}
+		
+		if(isAnnotationPresent(hm,AdminOnly.class) && !id.equals(CommonUtils.ADMIN)) {
+			throw new AuthorizationException();
+		}
+		
+		return super.preHandle(request, response, handler);
 	}
 
-	private boolean isAjaxRequest(HttpServletRequest req) {
-		return ("true".equals(req.getHeader("AJAX"))? true : false);
+	public boolean isAnnotationPresent(HandlerMethod hm, Class c) {
+		return hm.getMethod().getDeclaringClass().isAnnotationPresent(c);
 	}
 }

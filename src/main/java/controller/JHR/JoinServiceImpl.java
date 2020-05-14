@@ -63,29 +63,6 @@ public class JoinServiceImpl implements JoinService {
 		
 	}
 	
-	/*//카테고리
-	public List<String> getLevel1(String col){
-		List<String> list = null;
-		
-		try {
-			list = dao.getCategory1("JHR_AUS.select1",col);
-		}catch (Exception e) {
-			System.out.println("[에러] Level1서비스실패 ::"+e.toString());
-		}
-		return list;
-	}
-
-	public List<String> getLevel2(String col){
-		List<String> list = null;
-		
-		try {
-			list = dao.getCategory1("JHR_AUS.select2",col);
-		}catch (Exception e) {
-			System.out.println("[에러] Level2서비스실패 ::"+e.toString());
-		}
-		return list;
-	}*/
-	
 	//아이디 찾기
 	@Override
 	public MemberDTO findId(MemberDTO dto) {

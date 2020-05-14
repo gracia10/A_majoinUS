@@ -1,4 +1,4 @@
-package controller.LSH.DTO;
+package controller.LSH.search.team.dto;
 
 import java.util.Arrays;
 
@@ -9,8 +9,8 @@ public class SearchTeamDTO {
 	private String keyword;
 	private String start_d;
 	private String end_d;
-	private String sort;
-	private String sort_way;
+	private String sort ="regdate";
+	private String sort_way ="DESC";
 	private String checking;
 	private String id;
 	private int startRow;

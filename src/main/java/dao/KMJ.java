@@ -1,10 +1,23 @@
 package dao;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import project.DTO.*;
+import exception.AuthorizationException;
+import project.DTO.FileboardDTO;
+import project.DTO.MemberWorkCountDTO;
+import project.DTO.Pj_memDTO;
+import project.DTO.PointDTO;
+import project.DTO.Port_detailDTO;
+import project.DTO.PortfolioDTO;
+import project.DTO.Project_chatDTO;
+import project.DTO.Project_workboardDTO;
+import project.DTO.ReviewDTO;
+import project.DTO.Review_adminDTO;
+import project.DTO.Workboard_commentDTO;
 
 public class KMJ extends SqlSessionDaoSupport{
 	
@@ -278,9 +291,7 @@ public class KMJ extends SqlSessionDaoSupport{
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("pj_num", pj_num);
-		
 		int pjm_num = getSqlSession().selectOne("KMJ_AUS.getpjm_num",map);
-		
 		return pjm_num;
 	}
 	

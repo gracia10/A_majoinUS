@@ -5,9 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="texxt/html; charset=utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>A_majoinUs</title>
 
 <link
@@ -50,7 +47,6 @@
 	src="<%=request.getContextPath()%>/MainTemplate/js/jquery.easing.1.3.js"></script>
 <script
 	src="<%=request.getContextPath()%>/MainTemplate/js/select2.min.js"></script>
-<script src="<%=request.getContextPath()%>/MainTemplate/js/main.js"></script>
 
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 
@@ -80,7 +76,7 @@
 					</h2>
 					<h2 class="heading mb-1 display-4 font-bold ">Oops!
 						Something went wrong</h2>
-					<h2 class="heading mb-1 display-4" style="font-size: x-large; padding-top: 10px;">${exception.message}</h2>
+					<h2 class="heading mb-1 display-4" style="font-size: x-large; padding-top: 10px;">${message}</h2>
 					<p class="lead mb-5 probootstrap-animate "></p>
 				</div>
 			</div>

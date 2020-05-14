@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.JEJ;
+import interceptor.AdminOnly;
 import net.sf.json.JSONObject;
 import project.DTO.PaymentDTO;
 
+@AdminOnly
 @Controller
 public class PaymentListController {
 

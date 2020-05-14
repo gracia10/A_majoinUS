@@ -1,5 +1,4 @@
 	$("body").on('click','.unstar', function() {
-		console.log("13.카트 추가");
 		var pj_num = $(this).parents("tr").attr('id');
 
 		global.cart_list.push(pj_num);
@@ -8,7 +7,6 @@
 	});
 	
 	$("body").on('click','.star', function() {
-		console.log("14.카트 제거");
 		var pj_num = $(this).parents("tr").attr('id');
 		
 		for(var i =0; i<global.cart_list.length;i+=1){
@@ -28,12 +26,7 @@
 			type:"post",
 			url:url,
 			data: params,
-			beforeSend: function(xmlHttpRequest){
-				xmlHttpRequest.setRequestHeader("AJAX","true");	
-			},
 			success:function(args){
-				console.log("[*]"+status+"즐겨찾기도착");
-				
 				if(status === "add"){
 					$('#result_table #'+pj_num+' #star_btn').attr('class','star');
 					$('#result_table #'+pj_num+' #star_btn').html('<i class="fa fa-fw fa-star text-yellow"></i>');
@@ -41,9 +34,6 @@
 					$('#result_table #'+pj_num+' #star_btn').attr('class','unstar');
 					$('#result_table #'+pj_num+' #star_btn').html('<i class="fa fa-fw fa-star-o text-yellow"></i>');
 				}
-			},
-			error : function(xhr,textStatus,error) {
-				warn(xhr.status);
 			}
 		}); 
 		
@@ -66,7 +56,6 @@
  		
  		$('#cart_table').append(html);
  		$('#cart_len').text('('+length+')');
- 		
 	}
 	
 	function del_cart(pj_num){
@@ -76,12 +65,5 @@
 			$('#cart_table').append('<tr><td colspan="7" class="none">스크랩한 프로젝트가 없습니다</td></tr>');
 		}
 		$('#cart_len').text('('+length+')');
-	}
-	
-	function warn(e){
-		if(e=="400"){
-			alert('로그아웃 되었습니다');
-		}
-		location.href="/A_majoinUS/aus/main";
 	}
 	
