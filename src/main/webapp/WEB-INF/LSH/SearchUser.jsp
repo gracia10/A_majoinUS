@@ -348,10 +348,6 @@
 		sort(getPageNum());
 	});
 
-	$('.pagination').on('click','.page_btn', function() {
-		sort($(this).attr("id"));
-	});
-
 	function sort(pageNum) {
 		var url="<%=cp%>/aus/userSort";
 		var params = $("#SearchForm").serialize()+"&pageNum="+pageNum;
@@ -372,19 +368,15 @@
 	function show_sort(){
 		var what_sort = $('#sort').val()+'_sort';
 		var sort_way = $('#sort_way').val();
-				
 		$('#'+what_sort).addClass("on");
 		$('#'+what_sort+' i').removeClass("fa-sort");
-		
 		(sort_way === 'DESC')? $('#'+what_sort+' i').addClass("fa-caret-down") : $('#'+what_sort+' i').addClass("fa-caret-up");
 	}
 
 	function sort_change(element){
 		$('.on i').removeClass("fa-caret-down fa-caret-up").addClass("fa-sort");
 		$('.on').removeClass("on");
-
 		var sort = $(element).attr('id').replace("_sort","");
-		
 		if(sort === $("#sort").val()){				
 			($('#sort_way').val() === 'DESC')? $("#sort_way").val('ASC') : $("#sort_way").val('DESC');
 		}else{											
@@ -406,12 +398,13 @@
 			
 			list.forEach(function(item) {
 				html += "<tr id='"+item.id+"'><td style='width: 20%;'>"
-				html += "<img class='img-circle' src='"+getContext()+"/aus/userImg/"+item.u_img+"' alt='회원 사진' style='width:80px; height:80px; overflow:hidden;'></td>";
+				html += "<img class='img-circle' src='"+getContext()+"/aus/userImg/"+item.u_img
+				html += "' alt='회원 사진' style='width:80px; height:80px; overflow:hidden;'></td>";
 				html += "<td style='width: 30%; text-align: left;'><ul class='list-unstyled'><li><b>"+item.name+"("+item.id+")</b></li>";
 				html += "<li>관심직종:"+item.f_cate+"</li>";
 				html += "<li>선호지역:"+item.f_loc+"</li>";
 				html += "<li>평점:"+parseFloat(item.eval).toFixed(1)+"점</li></ul></td>";
-				html += "<td><button class='btn btn-default user_btn' data-toggle='modal' data-target='#modal_user' >이동</button></td>";
+				html += "<td><button class='btn btn-default user_btn' data-toggle='modal' data-target='#modal_user'>이동</button></td>";
 				html += "<td>"+item.joindate+"</td>";
 				html += "<td><button class='btn btn-success plus_btn' id='"+item.id+"' data-toggle='modal' data-target='#modal-join'>";
 				html += "멤버초대</button></td></tr>";
@@ -445,8 +438,6 @@
 		var pageNum = $('.pagination .active').attr('id');
 		return (pageNum === undefined)? 1 : pageNum;
 	}
-	</script>
-	
 	</script>
 	
 	<!-- 유저 모달  -->

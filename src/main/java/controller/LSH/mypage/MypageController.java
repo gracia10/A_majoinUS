@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.DTO.Todo_listDTO;
 import utils.CommonUtils;
@@ -19,7 +20,7 @@ import utils.CommonUtils;
 public class MypageController {
 
 	@Autowired
-	private MypageService service;
+	private MypageServiceImpl service;
 	
 	@GetMapping("/MyPageMain")
 	public String getMypage(Model model){
@@ -33,12 +34,12 @@ public class MypageController {
 	}
 	
 	@PostMapping("/insertTodo")
-	public void insertTodo(Todo_listDTO dto){
+	public @ResponseBody void insertTodo(Todo_listDTO dto){
 		service.insertTodo(dto);
 	}
 	
 	@PostMapping("/Fin")
-	public void Fin(String todo_num,String status){
+	public @ResponseBody void Fin(String todo_num,String status){
 		if(status.equals("추가")) {
 			service.updateFin(todo_num);
 		}else {
@@ -47,7 +48,7 @@ public class MypageController {
 	}
 	
 	@PostMapping("/deleteTodo")
-	public void deleteTodo(@RequestParam(value="todo_nums[]") List<String> todo_nums){
+	public @ResponseBody void deleteTodo(@RequestParam(value="todo_nums[]") List<String> todo_nums){
 		service.deleteTodo(todo_nums);
 	}
 

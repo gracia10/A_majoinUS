@@ -53,10 +53,9 @@
     </appender>
 
 
-<!-- 	<logger name="controller" level="DEBUG"/>
 	<logger name="exception" level="DEBUG"/>
 	<logger name="org.springframework" level="DEBUG"/>
- -->	
+	
 	<logger name="jdbc" level="OFF"/>
 	<logger name="jdbc.sqlonly" level="DEBUG">
 		<appender-ref ref="File"/>

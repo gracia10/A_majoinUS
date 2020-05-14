@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import controller.LSH.search.user.PagingDTO;
+import controller.LSH.search.team.dto.SearchTeamDTO;
+import controller.LSH.search.user.dto.PagingDTO;
 import utils.CommonUtils;
 
 @Controller

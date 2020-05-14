@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import controller.LSH.search.SearchCommonDAO;
+import controller.LSH.search.team.dto.ResultTeamDTO;
+import controller.LSH.search.team.dto.SearchTeamDTO;
 import project.DTO.ProjectroomDTO;
 
 @Repository

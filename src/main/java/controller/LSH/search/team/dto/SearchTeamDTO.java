@@ -1,4 +1,4 @@
-package controller.LSH.search.team;
+package controller.LSH.search.team.dto;
 
 import java.util.Arrays;
 

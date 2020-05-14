@@ -205,7 +205,7 @@
 				    ) base
 				) total
 				WHERE  total.RNUM = 1
-				order by ${sort} ${sort_way}
+				order by #{sort} #{sort_way}
 			) fin
 		) <![CDATA[ where r >= #{startRow} and r<=#{endRow}]]>
 	</select>
@@ -280,7 +280,7 @@
 				    ) base
 				) total
 				WHERE  total.RNUM = 1
-				order by ${sort} ${sort_way}
+				order by #{sort} #{sort_way}
 			) fin
 		) <![CDATA[ where r >= #{startRow} and r<=#{endRow}]]>
 	</select>

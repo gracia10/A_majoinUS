@@ -386,12 +386,11 @@ window.onload = () => {
 	// 디비등록
 	function insertTodo(todo_num,todo){
 		var url="<%=cp%>/aus/insertTodo";
-		var params = "id=${sessionScope.id}&todo_num="+todo_num+"&todo="+todo;
 		
 		$.ajax({
 			type : "post",
 			url : url,
-			data : params
+			data : "id=${sessionScope.id}&todo_num="+todo_num+"&todo="+todo
 		});
 	}
 
@@ -405,7 +404,7 @@ window.onload = () => {
 			data : { 
 				"todo_num": todo_num,
 				"status": status
-			}	
+			}
 		});
 	}
 	
@@ -428,7 +427,6 @@ window.onload = () => {
 
 $('body').on('click','.checkbox-inline',function(){
     if ($(this).parents(".todo").attr('class').indexOf("checked") >= 0) {
-  		
   		$(this).parents(".todo").removeClass("checked done");
   		updateTodo($(this).attr('id'),"제거")
   		

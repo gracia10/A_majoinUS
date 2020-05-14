@@ -10,32 +10,30 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import exception.AuthenticationException;
 import exception.AuthorizationException;
+import utils.CommonUtils;
 
 public class UserInterceptor extends HandlerInterceptorAdapter {
 
 	private static Logger logger = LoggerFactory.getLogger(UserInterceptor.class);
 	
-	private final static String adminId = "amajoinus@gmail.com";
-
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) 
+			throws Exception {
 
-		
-		logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		
+		logger.info("UserInterceptor prehandle job start");
 		
 		if (handler instanceof HandlerMethod == false) {
 			return super.preHandle(request, response, handler);
 		}
 
 		HandlerMethod hm = (HandlerMethod) handler;
-		String id = (String) request.getSession().getAttribute("id");
+		String id = CommonUtils.getUserId();
 		
 		if(id == null && !isAnnotationPresent(hm,NoLoginCheck.class)) {
 			throw new AuthenticationException();
 		}
 		
-		if(isAnnotationPresent(hm,AdminOnly.class) && !id.equals(adminId)) {
+		if(isAnnotationPresent(hm,AdminOnly.class) && !id.equals(CommonUtils.ADMIN)) {
 			throw new AuthorizationException();
 		}
 		

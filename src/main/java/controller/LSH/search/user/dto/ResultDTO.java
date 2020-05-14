@@ -1,4 +1,4 @@
-package controller.LSH.search.user;
+package controller.LSH.search.user.dto;
 
 public class ResultDTO {
 

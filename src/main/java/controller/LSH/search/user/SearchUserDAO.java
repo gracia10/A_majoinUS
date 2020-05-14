@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import controller.LSH.search.user.dto.ResultDTO;
+import controller.LSH.search.user.dto.SearchDTO;
 import project.DTO.AlarmDTO;
 
 @Repository
