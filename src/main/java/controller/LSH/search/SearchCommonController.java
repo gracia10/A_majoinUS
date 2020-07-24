@@ -25,6 +25,7 @@ public class SearchCommonController {
 	
 	@Autowired
 	private SearchCommonService service;
+
 	
 	@GetMapping("/category")
 	public @ResponseBody Map<String,Object> getCategory(){

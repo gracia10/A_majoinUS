@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import controller.LSH.search.user.dto.ResultDTO;
 import controller.LSH.search.user.dto.SearchDTO;
 
+
 @Repository
 public class SearchUserDAO{
 

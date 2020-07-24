@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import controller.LSH.search.SearchCommonService;
+
 import controller.LSH.search.team.dto.ResultTeamDTO;
 import controller.LSH.search.team.dto.SearchTeamDTO;
 import controller.LSH.search.user.dto.PagingDTO;

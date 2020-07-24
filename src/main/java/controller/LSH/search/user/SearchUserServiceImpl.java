@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import controller.LSH.search.SearchCommonService;
 import controller.LSH.search.user.dto.PagingDTO;
 import controller.LSH.search.user.dto.ResultDTO;
@@ -15,13 +14,14 @@ import controller.LSH.search.user.dto.SearchDTO;
 import utils.CommonUtils;
 
 @Service
-public class SearchUserServiceImpl implements SearchUserService{
+public class SearchUserService implements SearchUserService{
 
 	@Autowired
 	private SearchUserDAO dao;
 	
 	@Autowired
 	private SearchCommonService service;
+
 	
 	public Map<String,Object> getSearchUser(String id, SearchDTO dto){
 		Map<String,Object> result = new HashMap<String,Object>();

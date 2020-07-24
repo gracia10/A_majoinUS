@@ -18,7 +18,7 @@ public class ProejctRoomController {
 	
 	@Autowired
 	private ProjectRoomService service;
-	
+
 	@GetMapping(value="/Main")
 	public String getMain(@RequestParam(value="pj_Num") int pj_Num, Model model) {
 		String id= (String) CommonUtils.getAttribute(CommonUtils.ID);
