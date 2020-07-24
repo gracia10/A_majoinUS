@@ -14,7 +14,7 @@ import controller.LSH.search.user.dto.SearchDTO;
 import utils.CommonUtils;
 
 @Service
-public class SearchUserService implements SearchUserService{
+public class SearchUserServiceImpl implements SearchUserService{
 
 	@Autowired
 	private SearchUserDAO dao;
