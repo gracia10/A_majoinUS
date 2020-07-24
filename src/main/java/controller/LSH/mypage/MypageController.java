@@ -20,7 +20,7 @@ import utils.CommonUtils;
 public class MypageController {
 
 	@Autowired
-	private MypageServiceImpl service;
+	private MypageService service;
 	
 	@GetMapping("/MyPageMain")
 	public String getMypage(Model model){

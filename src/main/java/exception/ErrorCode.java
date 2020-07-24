@@ -12,13 +12,13 @@ public enum ErrorCode {
     ;
 	
     private int status;
-	private final String message;
 	private final String code;
+	private final String message;
 
     ErrorCode(final int status,final String code, final String message) {
         this.status = status;
-        this.message = message;
         this.code = code;
+        this.message = message;
     }
     
     public int getStatus() {return status;}
