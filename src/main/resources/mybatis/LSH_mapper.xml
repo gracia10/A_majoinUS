@@ -171,7 +171,7 @@
 	</select>
 
 	<!-- 맴버검색 sql -->
-	<select id="search" parameterType="controller.LSH.search.user.SearchDTO" resultType="controller.LSH.search.user.ResultDTO">
+	<select id="search" parameterType="controller.LSH.search.user.dto.SearchDTO" resultType="controller.LSH.search.user.dto.ResultDTO">
 		select * from(
 			select fin.*, rownum r 
 		    from(
@@ -210,7 +210,7 @@
 		) <![CDATA[ where r >= #{startRow} and r<=#{endRow}]]>
 	</select>
 	
-	<select id="searchNumber" parameterType="controller.LSH.search.user.SearchDTO" resultType="int">
+	<select id="searchNumber" parameterType="controller.LSH.search.user.dto.SearchDTO" resultType="int">
 			SELECT count(*)
 				from(
 				    SELECT ROW_NUMBER() OVER (PARTITION BY id ORDER BY f_cate)  AS RNUM, base.* 
@@ -244,7 +244,7 @@
 	</select>
 	
 	<!-- 팀검색 sql -->
-	<select id="searchTeam" parameterType="controller.LSH.search.team.SearchTeamDTO" resultType="controller.LSH.search.team.ResultTeamDTO">
+	<select id="searchTeam" parameterType="controller.LSH.search.team.dto.SearchTeamDTO" resultType="controller.LSH.search.team.dto.ResultTeamDTO">
 		SELECT * FROM(
 			SELECT fin.*, rownum r 
 			FROM(
@@ -285,7 +285,7 @@
 		) <![CDATA[ where r >= #{startRow} and r<=#{endRow}]]>
 	</select>
 	
-	<select id="searchTeamNumber" parameterType="controller.LSH.search.team.SearchTeamDTO" resultType="int">
+	<select id="searchTeamNumber" parameterType="controller.LSH.search.team.dto.SearchTeamDTO" resultType="int">
 			SELECT count(*)
 				from(
 			    	SELECT ROW_NUMBER() OVER (PARTITION BY PJ_NUM ORDER BY regdate)  AS RNUM, base.* 
@@ -320,14 +320,14 @@
 	</select>
 	
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-	<select id="getMy_fav" parameterType="String" resultType="controller.LSH.search.user.ResultDTO">
+	<select id="getMy_fav" parameterType="String" resultType="controller.LSH.search.user.dto.ResultDTO">
 		select f_loc,f_cate from member a
 			left outer join (select id, LISTAGG(f_loc,', ') WITHIN GROUP (ORDER BY f_loc) f_loc from f_location  group by id) b on (a.id = b.id)
 			left outer join (select id, LISTAGG(f_cate,', ') WITHIN GROUP (ORDER BY f_cate) f_cate from f_job  group by id) c on (a.id = c.id)
 			where a.id = #{id}
 	</select>
 	
-	<select id="recommend_Team" parameterType="map" resultType="controller.LSH.search.team.ResultTeamDTO">
+	<select id="recommend_Team" parameterType="map" resultType="controller.LSH.search.team.dto.ResultTeamDTO">
 		select * 
 		from(
 			select  
@@ -376,7 +376,7 @@
 		)where rank <4 ]]>		
 	</select>
 	
-	<select id="recommend_User" parameterType="map" resultType="controller.LSH.search.user.ResultDTO">
+	<select id="recommend_User" parameterType="map" resultType="controller.LSH.search.user.dto.ResultDTO">
 		select *
 		from(
 		    select  

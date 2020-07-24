@@ -2,8 +2,6 @@ package controller.LSH.projectroom;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,8 @@ import utils.CommonUtils;
 public class ProejctRoomController {
 	
 	@Autowired
-	private ProjectRoomServiceImpl service;
-	
+	private ProjectRoomService service;
+
 	@GetMapping(value="/Main")
 	public String getMain(@RequestParam(value="pj_Num") int pj_Num, Model model) {
 		String id= (String) CommonUtils.getAttribute(CommonUtils.ID);

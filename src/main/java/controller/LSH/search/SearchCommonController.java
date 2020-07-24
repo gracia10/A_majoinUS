@@ -24,7 +24,8 @@ import utils.CommonUtils;
 public class SearchCommonController {
 	
 	@Autowired
-	private SearchCommonServiceImpl service;
+	private SearchCommonService service;
+
 	
 	@GetMapping("/category")
 	public @ResponseBody Map<String,Object> getCategory(){

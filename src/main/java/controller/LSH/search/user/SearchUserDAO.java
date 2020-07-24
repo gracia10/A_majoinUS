@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import controller.LSH.search.user.dto.ResultDTO;
 import controller.LSH.search.user.dto.SearchDTO;
-import project.DTO.AlarmDTO;
+
 
 @Repository
 public class SearchUserDAO{
