@@ -5,7 +5,7 @@ Spring을 이용한 협업 지원 & 매칭 커뮤니티
 |환경 	 |   |
 |--------| :-------------------------------: |
 |O/S     | Window7, Window10 |
-|언어	   | Java/JSP/JavaScript/jQuery/Ajax/Mybatis|
+|언어	   | Java/JSP/JavaScript/jQuery/Mybatis|
 |DBMS    | Oracle|
 |Tools   | STS, sqldeveloper|
 |디자인툴| Bootstrap|
